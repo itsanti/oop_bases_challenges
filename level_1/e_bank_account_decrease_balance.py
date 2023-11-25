@@ -15,11 +15,15 @@ class BankAccount:
         self.balance = balance
 
     def increase_balance(self, income: float):
+        if income < 0:
+            raise ValueError('Value must be positive')
         self.balance += income
 
     def decrease_balance(self, loss: float):
         if loss > self.balance:
             raise ValueError('Insufficient funds in balance. Please top up your balance for transaction.')
+        elif loss < 0:
+            raise ValueError('Value must be positive')
         self.balance -= loss
 
 

@@ -12,7 +12,7 @@ class User:
         self.age = age
         self.phone = phone
 
-    def __str__(self):
+    def __repr__(self):
         return (f'Информация о пользователе: {self.name}, '
                 f'{self.username}, {self.age}, {self.phone}.')
 

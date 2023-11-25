@@ -15,6 +15,8 @@ class BankAccount:
         self.balance = balance
 
     def increase_balance(self, income: float):
+        if income < 0:
+            raise ValueError('Value must be positive')
         self.balance += income
 
 
