@@ -10,8 +10,25 @@
 
 
 class BankAccount:
-    pass  # код писать тут
+    def __init__(self, owner_full_name: str, balance: float):
+        self.owner_full_name = owner_full_name
+        self.balance = balance
+
+    def increase_balance(self, income: float):
+        if income < 0:
+            raise ValueError('Value must be positive')
+        self.balance += income
+
+    def decrease_balance(self, loss: float):
+        if loss > self.balance:
+            raise ValueError('Insufficient funds in balance. Please top up your balance for transaction.')
+        elif loss < 0:
+            raise ValueError('Value must be positive')
+        self.balance -= loss
 
 
 if __name__ == '__main__':
-    pass  # код писать тут
+    user = BankAccount('Aleksandr Kurov', 9999.99)
+    user.decrease_balance(8000.99)
+    print(user.balance)
+    user.decrease_balance(1999.1)

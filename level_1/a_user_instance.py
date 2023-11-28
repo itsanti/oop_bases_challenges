@@ -12,7 +12,10 @@ class User:
         self.age = age
         self.phone = phone
 
+    def __repr__(self):
+        return (f'Информация о пользователе: {self.name}, '
+                f'{self.username}, {self.age}, {self.phone}.')
+
 
 if __name__ == '__main__':
-    pass  # код писать тут
-
+    print(User('Aleksandr', 'admin', 22, '8-800-555-35-35'))
