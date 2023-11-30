@@ -10,18 +10,28 @@
 
 
 class TextProcessor:
-    def __init__(self, text):
+    def __init__(self, text: str) -> None:
         self.text = text
 
-    def to_upper(self):
+    def to_upper(self) -> str:
         return self.text.upper()
 
-    def summarize(self):
+    def summarize(self) -> str:
         return f'Total text length: {len(self.text)}'
 
 
-# код писать тут
+class AdvancedTextProcessor(TextProcessor):
+    def summarize(self) -> str:
+        chars = super().summarize()
+        words = len(self.text.split())
+        return f'{chars}, total number of words in the text: {words}'
 
 
 if __name__ == '__main__':
-    pass  # код писать тут
+    text = TextProcessor('Органический трафик определил дальнейшее развитие')
+    assert text.to_upper() == 'ОРГАНИЧЕСКИЙ ТРАФИК ОПРЕДЕЛИЛ ДАЛЬНЕЙШЕЕ РАЗВИТИЕ'
+    assert text.summarize() == f'Total text length: 49'
+
+    text = AdvancedTextProcessor('Органический трафик был 3')
+    assert text.to_upper() == 'ОРГАНИЧЕСКИЙ ТРАФИК БЫЛ 3'
+    assert text.summarize() == f'Total text length: 25, total number of words in the text: 4'
