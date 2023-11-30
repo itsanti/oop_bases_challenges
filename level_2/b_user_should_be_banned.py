@@ -18,11 +18,12 @@ class User:
     surname: str
     age: int
 
+    @property
     def should_be_banned(self) -> bool:
         return self.surname in SURNAMES_TO_BAN
 
 
 user1 = User(name='John', surname='Smith', age=40)
-assert user1.should_be_banned()
+assert user1.should_be_banned
 user2 = User(name='Aleksandr', surname='Ivanov', age=22)
-assert not user2.should_be_banned()
+assert not user2.should_be_banned
