@@ -10,7 +10,7 @@
        меньше чем текущая дата - то is_available должен возвращать False. Используйте super() для этого.
     3. Создайте экземпляры каждого из двух классов и вызовите у них все доступные методы
 """
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 class Product:
@@ -26,8 +26,21 @@ class Product:
 
 
 class FoodProduct(Product):
-    pass  # код писать тут
+    def __init__(self, title, quantity, expiration_date):
+        super().__init__(title, quantity)
+        self.expiration_date = expiration_date
+
+    def get_full_info(self):
+        return f'Product {self.title}, {self.quantity} in stock. Expiration date: {self.expiration_date}'
+
+    def is_available(self):
+        return super().is_available() and (self.expiration_date - datetime.now()).total_seconds() >= 0
 
 
 if __name__ == '__main__':
-    pass  # код писать тут
+    book = Product('Book', 2)
+    print(book.get_full_info())
+    assert book.is_available()
+    apple = FoodProduct('Apple', 1, datetime.now() + timedelta(days=-1))
+    print(apple.get_full_info())
+    assert not apple.is_available()
