@@ -34,7 +34,13 @@ class BaseHeadersMixin:
         return self.generate_base_headers()
 
 
-# код писать тут
+class CustomResponse(BaseHeadersMixin, BaseResponse):
+    def generate_headers(self):
+        return {
+            **{'Content-Length': super().get_byte_content_length()},
+            **super().generate_base_headers()
+        }
 
 if __name__ == '__main__':
-    pass  # код писать тут
+    response = CustomResponse('Dasha is a cool mentor =)')
+    print(response.generate_headers())
