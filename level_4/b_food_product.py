@@ -31,10 +31,10 @@ class FoodProduct(Product):
         self.expiration_date = expiration_date
 
     def get_full_info(self):
-        return f'Product {self.title}, {self.quantity} in stock. Expiration date: {self.expiration_date}'
+        return f'{super().get_full_info()} Expiration date: {self.expiration_date}'
 
     def is_available(self):
-        return super().is_available() and (self.expiration_date - datetime.now()).total_seconds() >= 0
+        return super().is_available() and (self.expiration_date - datetime.now()).days >= 0
 
 
 if __name__ == '__main__':
