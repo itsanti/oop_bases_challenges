@@ -21,9 +21,9 @@ class PhotoForm:
             raise ValueError
 
 
-def generate_photos_limit_message():
-    return  # код писать тут
+def generate_photos_limit_message(cls):
+    return  f"Вы можете загрузить не более {cls.max_photos_number} фотографий"
 
 
 if __name__ == '__main__':
-    pass  # код писать тут
+    assert generate_photos_limit_message(PhotoForm) == 'Вы можете загрузить не более 10 фотографий'

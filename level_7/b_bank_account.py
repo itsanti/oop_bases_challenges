@@ -17,8 +17,16 @@ class BankAccount:
         self.balance = balance
 
     def decrease_balance(self, amount: float):
-        pass  # писать код тут
-
+        if self.balance - amount < self.min_balance:
+            raise ValueError(f"You have exceeded the minimum negative balance.")
+        self.balance -= amount
 
 if __name__ == '__main__':
-    pass  # писать код тут
+    account = BankAccount('Sasha', 100)
+    account.decrease_balance(100)
+    assert account.balance == 0
+    try:
+        account.decrease_balance(101)
+    except ValueError as e:
+        assert str(e) == "You have exceeded the minimum negative balance."
+

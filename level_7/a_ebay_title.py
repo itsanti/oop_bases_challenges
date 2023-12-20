@@ -7,17 +7,17 @@
        то что вы ожидаете.
 """
 
-EBAY_TITLE = 'eBay'
-
-
 class EbayProduct:
+    ebay_title = 'eBay'
+
     def __init__(self, title: str, price: float):
         self.title = title
         self.price = price
 
     def get_product_info(self):
-        return f'Product {self.title} with price {self.price} from {EBAY_TITLE} marketplace'
+        return f'Product {self.title} with price {self.price} from {self.ebay_title} marketplace'
 
 
 if __name__ == '__main__':
-    pass
+    product = EbayProduct('Apple', 20)
+    assert product.get_product_info() == 'Product Apple with price 20 from eBay marketplace'
