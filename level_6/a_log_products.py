@@ -9,41 +9,35 @@
     3. Вызовите у экземпляров PremiumProduct и DiscountedProduct все возможные методы и убедитесь, что вызовы логируются.
 """
 
-def PrintLoggerDecorator(cls):
-    def logging(method):
-        def inner_method(self, *args, **kwargs):
-            print(f"Call {cls.__name__}::{method.__name__}")
-            return method(self, *args, **kwargs)
-        return inner_method
-    methods = [attr for attr in cls.__dict__.keys()
-               if not attr.startswith("__") and callable(getattr(cls, attr))]
-    for method in methods:
-        setattr(cls, method, logging(getattr(cls, method)))
-    return cls
+
+class PrintLoggerMixin:
+    def log(self, msg):
+        print(msg)
 
 
-class Product():
+class Product(PrintLoggerMixin):
     def __init__(self, title: str, price: float):
+        self.log(f'Call {self.__class__.__name__}::__init__')
         self.title = title
         self.price = price
 
     def get_info(self):
+        self.log(f'Call {self.__class__.__name__}::get_info')
         return f'Product {self.title} with price {self.price}'
 
 
-@PrintLoggerDecorator
 class PremiumProduct(Product):
     def increase_price(self):
+        self.log(f'Call {self.__class__.__name__}::increase_price')
         self.price *= 1.2
 
     def get_info(self):
         base_info = super().get_info()
         return f'{base_info} (Premium)'
 
-
-@PrintLoggerDecorator
 class DiscountedProduct(Product):
     def decrease_price(self):
+        self.log(f'Call {self.__class__.__name__}::decrease_price')
         self.price /= 1.2
 
     def get_info(self):
@@ -66,8 +60,12 @@ if __name__ == '__main__':
 '''
     Out:
     
+    Call Product::__init__
+    Call Product::get_info
+    Call PremiumProduct::__init__
     Call PremiumProduct::increase_price
     Call PremiumProduct::get_info
+    Call DiscountedProduct::__init__
     Call DiscountedProduct::decrease_price
     Call DiscountedProduct::get_info
 '''
