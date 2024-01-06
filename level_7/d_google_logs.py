@@ -27,6 +27,8 @@ class Logger:
 
 
 class GoogleLogger(Logger):
+    max_log_size = 10
+
     def is_valid(self):
         return self.is_log_size_valid() and bool(self.message)
 

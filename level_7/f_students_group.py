@@ -15,8 +15,12 @@ class StudentGroup:
         self.group_number = group_number
         self.grades = grades
 
+    def __add__(self, other):
+        return sum(self.grades + other.grades)
+
 
 if __name__ == '__main__':
     first_group = StudentGroup(group_number=1, grades=[1, 4, 6, 3])
     second_group = StudentGroup(group_number=2, grades=[6, 3, 7, 3, 2])
     print(first_group + second_group)
+    assert first_group + second_group == 35
