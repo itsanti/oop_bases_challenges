@@ -12,6 +12,7 @@
        С помощью экземпляра CSVHandler прочитайте и распечатайте содержимое файла user_info.csv
 
 """
+import os
 import csv
 import json
 
@@ -26,12 +27,22 @@ class FileHandler:
 
 
 class JSONHandler(FileHandler):
-    pass  # код писать тут
+    def read(self):
+        json_data = super().read()
+        return json.loads(json_data)
 
 
 class CSVHandler(FileHandler):
-    pass  # код писать тут
+    def read(self):
+        reader = csv.DictReader(open(self.filename, 'r'))
+        return list(reader)
 
 
 if __name__ == '__main__':
-    pass  # код писать тут
+    path = [os.path.dirname(__file__), 'data', 'text.txt']
+    fh = FileHandler(os.sep.join(path))
+    print(fh.read())
+    jh = JSONHandler(os.sep.join(path[:-1] + ['recipes.json']))
+    print(jh.read())
+    ch = CSVHandler(os.sep.join(path[:-1] + ['user_info.csv']))
+    print(ch.read())
